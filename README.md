@@ -20,7 +20,7 @@ If your device name is wlan0, connect using the following command
 station wlan0 connect <SSID>
 ```
 
-Make sure to enter in your password
+Make sure to enter your password
 
 exit when complete
 
@@ -98,13 +98,13 @@ modprobe dm-crypt
 modprobe dm-mod
 ```
 
-Setting up encryption on our luks lvm partiton
+Setting up encryption on our luks lvm partition
 
 ```
 cryptsetup luksFormat -v -s 512 -h sha512 /dev/nvme0n1p3
 ```
 
-Enter in your password and **Keep it safe**. There is no "forgot password" here.
+Enter your password and **Keep it safe**. There is no "forgot password" here.
 
 
 If you have a home partition, then initialize this as well
@@ -119,7 +119,7 @@ Mount the drives:
 cryptsetup open /dev/nvme0n1p3 luks_lvm
 ```
 
-If you have a home parition:
+If you have a home partition:
 
 ```
 cryptsetup open /dev/nvme1n1p1 arch-home
@@ -142,7 +142,7 @@ In my case 66G.
 lvcreate -n swap -L 66G arch
 ```
 
-Next you have a few options depending on your setup
+Next, you have a few options depending on your setup
 
 ### Single Disk
 If you have a single disk, you can either have a single volume for your root 
@@ -166,7 +166,7 @@ root or home volumes. With a root volume of 200G, this looks like:
 lvcreate -n root -L 200G arch
 ```
 
-Then use remaining disk space for home
+Then use the remaining disk space for /home
 
 ```
 lvcreate -n home -l +100%FREE arch
@@ -189,7 +189,7 @@ FAT32 on EFI partiton
 mkfs.fat -F32 /dev/nvme0n1p1 
 ```
 
-EXT4 on Boot partiton
+EXT4 on Boot partition
 
 ```
 mkfs.ext4 /dev/nvme0n1p2
@@ -201,7 +201,7 @@ BTRFS on root
 mkfs.btrfs -L root /dev/mapper/arch-root
 ```
 
-BTRFS on home if exists
+BTRFS on /home if exists
 
 ```
 mkfs.btrfs -L home /dev/mapper/arch-home
@@ -228,13 +228,13 @@ Mount root
 mount /dev/mapper/arch-root /mnt
 ```
 
-Create home and boot
+Create /home and boot
 
 ```
 mkdir -p /mnt/{home,boot}
 ```
 
-Mount the boot partiton
+Mount the boot partition
 
 ```
 mount /dev/nvme0n1p2 /mnt/boot
@@ -389,7 +389,7 @@ FILES=(/secure/root_keyfile.bin)
 
 ### Home Partition Crypttab (Skip if single disk)
 
-Get uuid of home partition
+Get UUID of /home partition
 
 ```
 blkid /dev/nvme1n1p1
@@ -489,7 +489,7 @@ echo "mymachine" > /etc/hostname
 
 ### Users
 
-First secure the root user by setting a password
+First, secure the root user by setting a password
 
 ```
 passwd
@@ -541,7 +541,7 @@ systemctl enable gdm
 ```
 
 
-### Microcode (optional - optimazation)
+### Microcode (optional - optimization)
 
 For AMD
 
